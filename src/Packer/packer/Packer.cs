@@ -80,9 +80,30 @@ namespace com.mobiquityinc.packer
             }
         }
 
+        /// <summary>
+        ///     Your goal is to determine which things to put into the package so that the
+        ///     total weight is less than or equal to the package limit and the total cost is
+        ///     as large as possible. You would prefer to send a package which weights less
+        ///     in case there is more than one package with the same price.
+        /// </summary>
+        /// <returns>The package with things.</returns>
         private static Package Pack(TestCase testCase)
         {
-            throw new NotImplementedException();
+            var combinations = new List<List<Thing>>();
+            foreach (var thing in testCase.Things)
+            {
+                var subset = new List<List<Thing>> {new List<Thing> {thing}};
+                subset.AddRange(combinations.Select(comb => new List<Thing>(comb) {thing}));
+                combinations.AddRange(subset);
+            }
+
+            combinations.RemoveAll(comb => comb.Sum(thing => thing.Weight) > testCase.MaxPackageWeight);
+            var optimal = combinations
+                .OrderByDescending(comb => comb.Sum(thing => thing.Cost))
+                .ThenBy(comb => comb.Sum(thing => thing.Weight))
+                .FirstOrDefault() ?? Enumerable.Empty<Thing>();
+
+            return new Package(optimal);
         }
 
         public static string ToString(Package package)

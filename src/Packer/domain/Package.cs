@@ -4,9 +4,9 @@ namespace com.mobiquityinc.domain
 {
     public sealed class Package
     {
-        public Package(List<Thing> things)
+        public Package(IEnumerable<Thing> things)
         {
-            Things = things;
+            Things = new List<Thing>(things);
         }
 
         public List<Thing> Things { get; }
