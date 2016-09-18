@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace com.mobiquityinc.domain
@@ -12,5 +13,10 @@ namespace com.mobiquityinc.domain
 
         public decimal MaxPackageWeight { get; }
         public List<Thing> Things { get; }
+
+        public override string ToString()
+        {
+            return $"{{ MaxPackageWeight: {MaxPackageWeight}, Things: [{string.Join(@", ", Things)}] }}";
+        }
     }
 }

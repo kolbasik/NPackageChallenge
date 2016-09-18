@@ -1,3 +1,5 @@
+using System;
+
 namespace com.mobiquityinc.domain
 {
     public sealed class Thing
@@ -12,5 +14,10 @@ namespace com.mobiquityinc.domain
         public uint Index { get; }
         public decimal Weight { get; }
         public decimal Cost { get; }
+
+        public override string ToString()
+        {
+            return $"{{ Index: {Index}, Weight: {Weight}, Cost: {Cost} }}";
+        }
     }
 }

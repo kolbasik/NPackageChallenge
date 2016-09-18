@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using com.mobiquityinc.domain;
 using com.mobiquityinc.exception;
 using com.mobiquityinc.extensions;
@@ -31,9 +33,23 @@ namespace com.mobiquityinc.packer
             return string.Join(Environment.NewLine, results);
         }
 
-        private static TestCase Parse(string text)
+        public static TestCase Parse(string text)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var parts = text.Split(':').Select(x => x.Trim()).ToArray();
+                var maxPackageWeight = parts[0];
+                var things = parts[1].Split(' ').Select(x => x.Trim(' ', '(', ')').Split(','));
+                return new TestCase(decimal.Parse(maxPackageWeight),
+                    things.Select(x => new Thing(
+                        uint.Parse(x[0], CultureInfo.InvariantCulture),
+                        decimal.Parse(x[1], CultureInfo.InvariantCulture),
+                        decimal.Parse(x[2].TrimStart('€'), CultureInfo.InvariantCulture))));
+            }
+            catch (Exception ex)
+            {
+                throw new FormatException($@"The test case has incorrect format: {text}", ex);
+            }
         }
 
         private static void Validate(TestCase testCase)
