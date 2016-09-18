@@ -52,9 +52,32 @@ namespace com.mobiquityinc.packer
             }
         }
 
-        private static void Validate(TestCase testCase)
+        public static void Validate(TestCase testCase)
         {
-            throw new NotImplementedException();
+            const decimal PACKAGE_MAX_WEIGHT = 100;
+            const decimal THING_MAX_WEIGHT = 100;
+            const decimal THING_MAX_PRICE = 100;
+            const int THINGS_MAX_COUNT = 15;
+
+            if (testCase.MaxPackageWeight > PACKAGE_MAX_WEIGHT)
+            {
+                throw new ArgumentException($@"Package limit should be less then {PACKAGE_MAX_WEIGHT}.");
+            }
+            if (testCase.Things.Count > THINGS_MAX_COUNT)
+            {
+                throw new ArgumentException($@"Things count in one test case should be less then {THINGS_MAX_COUNT}.");
+            }
+            foreach (var thing in testCase.Things)
+            {
+                if (thing.Weight > THING_MAX_WEIGHT)
+                {
+                    throw new ArgumentException($@"Thing weight should be less then {THING_MAX_WEIGHT}.");
+                }
+                if (thing.Cost > THING_MAX_PRICE)
+                {
+                    throw new ArgumentException($@"Thing price should be less then {THING_MAX_PRICE}.");
+                }
+            }
         }
 
         private static Package Pack(TestCase testCase)
