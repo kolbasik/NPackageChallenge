@@ -38,7 +38,11 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="exception\APIException.cs" />
+    <Compile Include="extensions\EnumerableExtensions.cs" />
+    <Compile Include="domain\Package.cs" />
     <Compile Include="packer\Packer.cs" />
+    <Compile Include="domain\TestCase.cs" />
+    <Compile Include="domain\Thing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
