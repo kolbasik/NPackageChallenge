@@ -85,9 +85,9 @@ namespace com.mobiquityinc.packer
             throw new NotImplementedException();
         }
 
-        private static string ToString(Package package)
+        public static string ToString(Package package)
         {
-            throw new NotImplementedException();
+            return package.Things.Count == 0 ? @"-" : string.Join(@",", package.Things.Select(thing => thing.Index));
         }
     }
 }

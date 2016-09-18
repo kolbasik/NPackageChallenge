@@ -123,5 +123,39 @@ namespace com.mobiquityinc
                 Assert.Throws<ArgumentException>(() => Packer.Validate(testCase));
             }
         }
+
+        public sealed class ToString
+        {
+            [Fact]
+            public void Should_return_dash_if_none()
+            {
+                // arrange
+                var things = new List<Thing>();
+
+                // act
+                var actual = Packer.ToString(new Package(things));
+
+                // assert
+                Assert.Equal(@"-", actual);
+            }
+
+            [Fact]
+            public void Should_return_a_set_of_indexe_numbers_separated_by_comma()
+            {
+                // arrange
+                var things = new List<Thing>()
+                {
+                    new Thing(3, decimal.MinValue, decimal.MinValue),
+                    new Thing(5, decimal.Zero, decimal.Zero),
+                    new Thing(8, decimal.MaxValue, decimal.MaxValue),
+                };
+
+                // act
+                var actual = Packer.ToString(new Package(things));
+
+                // assert
+                Assert.Equal(@"3,5,8", actual);
+            }
+        }
     }
 }
