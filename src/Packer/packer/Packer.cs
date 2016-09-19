@@ -89,10 +89,10 @@ namespace com.mobiquityinc.packer
             {
                 var subset = new List<List<Thing>> {new List<Thing> {thing}};
                 subset.AddRange(combinations.Select(comb => new List<Thing>(comb) {thing}));
+                subset.RemoveAll(comb => comb.Sum(x => x.Weight) > testCase.MaxPackageWeight);
                 combinations.AddRange(subset);
             }
 
-            combinations.RemoveAll(comb => comb.Sum(thing => thing.Weight) > testCase.MaxPackageWeight);
             var optimal = combinations
                 .OrderByDescending(comb => comb.Sum(thing => thing.Cost))
                 .ThenBy(comb => comb.Sum(thing => thing.Weight))
