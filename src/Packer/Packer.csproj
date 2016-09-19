@@ -43,6 +43,9 @@
     <Compile Include="packer\Packer.cs" />
     <Compile Include="domain\TestCase.cs" />
     <Compile Include="domain\Thing.cs" />
+    <Compile Include="packer\TestCasePacker.cs" />
+    <Compile Include="packer\TestCaseParser.cs" />
+    <Compile Include="packer\TestCaseValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
