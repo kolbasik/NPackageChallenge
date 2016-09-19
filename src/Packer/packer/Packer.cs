@@ -15,22 +15,17 @@ namespace com.mobiquityinc.packer
         {
             try
             {
-                return Pack(File.ReadAllLines(filePath));
+                var results = File.ReadAllLines(filePath)
+                    .Map(Parse)
+                    .ForEach(Validate)
+                    .Map(Pack)
+                    .Map(Display);
+                return string.Join(Environment.NewLine, results);
             }
             catch (Exception ex)
             {
                 throw new APIException(@"An error occurred during packing.", ex);
             }
-        }
-
-        public static string Pack(IEnumerable<string> testCases)
-        {
-            var results = testCases
-                .Map(Parse)
-                .ForEach(Validate)
-                .Map(Pack)
-                .Map(ToString);
-            return string.Join(Environment.NewLine, results);
         }
 
         public static TestCase Parse(string text)
@@ -106,7 +101,7 @@ namespace com.mobiquityinc.packer
             return new Package(optimal);
         }
 
-        public static string ToString(Package package)
+        public static string Display(Package package)
         {
             return package.Things.Count == 0 ? @"-" : string.Join(@",", package.Things.Select(thing => thing.Index));
         }

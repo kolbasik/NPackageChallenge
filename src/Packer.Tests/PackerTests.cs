@@ -10,11 +10,11 @@ namespace com.mobiquityinc
 {
     public sealed class PackerTests
     {
-        public sealed class Smoke : IDisposable
+        public sealed class Pack : IDisposable
         {
             private readonly string tempFileName;
 
-            public Smoke()
+            public Pack()
             {
                 tempFileName = Path.GetTempFileName();
             }
@@ -28,7 +28,7 @@ namespace com.mobiquityinc
             }
 
             [Fact]
-            public void Pack_should_read_test_cases_from_defined_file_and_return_the_result_as_string()
+            public void Should_read_test_cases_from_defined_file_and_return_the_result_as_string()
             {
                 // prerequisite
                 const string input = @"81 : (1,53.38,€45) (2,88.62,€98) (3,78.48,€3) (4,72.30,€76) (5,30.18,€9) (6,46.34,€48)
@@ -123,7 +123,7 @@ namespace com.mobiquityinc
             }
         }
 
-        public sealed class ToString
+        public sealed class Display
         {
             [Fact]
             public void Should_return_dash_if_none()
@@ -132,14 +132,14 @@ namespace com.mobiquityinc
                 var things = new List<Thing>();
 
                 // act
-                var actual = Packer.ToString(new Package(things));
+                var actual = Packer.Display(new Package(things));
 
                 // assert
                 Assert.Equal(@"-", actual);
             }
 
             [Fact]
-            public void Should_return_a_set_of_indexe_numbers_separated_by_comma()
+            public void Should_return_a_set_of_index_numbers_separated_by_comma()
             {
                 // arrange
                 var things = new List<Thing>()
@@ -150,7 +150,7 @@ namespace com.mobiquityinc
                 };
 
                 // act
-                var actual = Packer.ToString(new Package(things));
+                var actual = Packer.Display(new Package(things));
 
                 // assert
                 Assert.Equal(@"3,5,8", actual);
