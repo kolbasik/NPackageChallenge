@@ -84,26 +84,26 @@ namespace com.mobiquityinc.packer
         /// <returns>The package with things.</returns>
         private static Package Pack(TestCase testCase)
         {
-            var combinations = new List<List<Thing>>();
+            var packages = new List<Package>();
             foreach (var thing in testCase.Things)
             {
-                var subset = new List<List<Thing>> {new List<Thing> {thing}};
-                subset.AddRange(combinations.Select(comb => new List<Thing>(comb) {thing}));
-                subset.RemoveAll(comb => comb.Sum(x => x.Weight) > testCase.MaxPackageWeight);
-                combinations.AddRange(subset);
+                var subset = new List<Package> {new Package { thing }};
+                subset.AddRange(packages.Select(package => new Package { package.Things, thing }));
+                subset.RemoveAll(package => package.Weight > testCase.MaxPackageWeight);
+                packages.AddRange(subset);
             }
 
-            var optimal = combinations
-                .OrderByDescending(comb => comb.Sum(thing => thing.Cost))
-                .ThenBy(comb => comb.Sum(thing => thing.Weight))
-                .FirstOrDefault() ?? Enumerable.Empty<Thing>();
+            var optimal = packages
+                .OrderByDescending(package => package.Cost)
+                .ThenBy(package => package.Weight)
+                .FirstOrDefault() ?? new Package();
 
-            return new Package(optimal);
+            return optimal;
         }
 
         public static string Display(Package package)
         {
-            return package.Things.Count == 0 ? @"-" : string.Join(@",", package.Things.Select(thing => thing.Index));
+            return package?.Things.Count == 0 ? @"-" : string.Join(@",", package.Things.Select(thing => thing.Index));
         }
     }
 }

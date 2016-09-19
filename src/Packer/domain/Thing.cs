@@ -1,5 +1,3 @@
-using System;
-
 namespace com.mobiquityinc.domain
 {
     public sealed class Thing

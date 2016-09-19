@@ -1,14 +1,37 @@
+using System.Collections;
 using System.Collections.Generic;
 
 namespace com.mobiquityinc.domain
 {
-    public sealed class Package
+    public sealed class Package : IEnumerable<Thing>
     {
-        public Package(IEnumerable<Thing> things)
+        private readonly List<Thing> things;
+
+        public Package()
         {
-            Things = new List<Thing>(things);
+            things = new List<Thing>();
         }
 
-        public List<Thing> Things { get; }
+        public decimal Weight { get; private set; }
+        public decimal Cost { get; private set; }
+        public IReadOnlyCollection<Thing> Things => things.AsReadOnly();
+
+        public void Add(IEnumerable<Thing> things)
+        {
+            foreach (var thing in things)
+            {
+                Add(thing);
+            }
+        }
+
+        public void Add(Thing thing)
+        {
+            things.Add(thing);
+            Weight += thing.Weight;
+            Cost += thing.Cost;
+        }
+
+        IEnumerator<Thing> IEnumerable<Thing>.GetEnumerator() => things.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => things.GetEnumerator();
     }
 }

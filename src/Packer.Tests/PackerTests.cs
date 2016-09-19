@@ -129,10 +129,10 @@ namespace com.mobiquityinc
             public void Should_return_dash_if_none()
             {
                 // arrange
-                var things = new List<Thing>();
+                var package = new Package();
 
                 // act
-                var actual = Packer.Display(new Package(things));
+                var actual = Packer.Display(package);
 
                 // assert
                 Assert.Equal(@"-", actual);
@@ -142,7 +142,7 @@ namespace com.mobiquityinc
             public void Should_return_a_set_of_index_numbers_separated_by_comma()
             {
                 // arrange
-                var things = new List<Thing>()
+                var package = new Package
                 {
                     new Thing(3, decimal.MinValue, decimal.MinValue),
                     new Thing(5, decimal.Zero, decimal.Zero),
@@ -150,7 +150,7 @@ namespace com.mobiquityinc
                 };
 
                 // act
-                var actual = Packer.Display(new Package(things));
+                var actual = Packer.Display(package);
 
                 // assert
                 Assert.Equal(@"3,5,8", actual);
