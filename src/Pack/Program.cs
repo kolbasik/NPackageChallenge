@@ -24,8 +24,6 @@ namespace com.mobiquityinc.pack
                 } while ((ex = ex.InnerException) != null);
                 Trace.TraceError(sb.ToString());
             }
-            Console.WriteLine(@"Press any key to exit...");
-            Console.ReadKey(true);
         }
     }
 }
