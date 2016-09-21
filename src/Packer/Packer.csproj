@@ -40,9 +40,11 @@
     <Compile Include="exception\APIException.cs" />
     <Compile Include="extensions\EnumerableExtensions.cs" />
     <Compile Include="domain\Package.cs" />
+    <Compile Include="packer\PackageFormatter.cs" />
     <Compile Include="packer\Packer.cs" />
     <Compile Include="domain\TestCase.cs" />
     <Compile Include="domain\Thing.cs" />
+    <Compile Include="packer\TestCaseHandler.cs" />
     <Compile Include="packer\TestCasePacker.cs" />
     <Compile Include="packer\TestCaseParser.cs" />
     <Compile Include="packer\TestCaseValidator.cs" />

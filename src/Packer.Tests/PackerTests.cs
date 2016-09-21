@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using com.mobiquityinc.domain;
 using com.mobiquityinc.packer;
 using Xunit;
 
@@ -45,40 +44,6 @@ namespace com.mobiquityinc
 
                 // assert
                 Assert.Equal(output, actual);
-            }
-        }
-
-        public sealed class Display
-        {
-            [Fact]
-            public void Should_return_dash_if_none()
-            {
-                // arrange
-                var package = new Package();
-
-                // act
-                var actual = Packer.Display(package);
-
-                // assert
-                Assert.Equal(@"-", actual);
-            }
-
-            [Fact]
-            public void Should_return_a_set_of_index_numbers_separated_by_comma()
-            {
-                // arrange
-                var package = new Package
-                {
-                    new Thing(3, decimal.MinValue, decimal.MinValue),
-                    new Thing(5, decimal.Zero, decimal.Zero),
-                    new Thing(8, decimal.MaxValue, decimal.MaxValue),
-                };
-
-                // act
-                var actual = Packer.Display(package);
-
-                // assert
-                Assert.Equal(@"3,5,8", actual);
             }
         }
     }
